@@ -1,0 +1,29 @@
+{
+  "name": "mem-shopping-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "mem goes meme shopping every hour: claims $MEM creator fees, buys the hottest meme, shares it with the top holders, publishes everything.",
+  "scripts": {
+    "test-run": "tsx src/test-run.ts",
+    "withdraw": "tsx src/withdraw.ts",
+    "start": "tsx src/index.ts",
+    "once": "tsx src/index.ts --once",
+    "sim": "tsx test/sim.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@solana/spl-token": "0.4.9",
+    "@solana/web3.js": "1.98.0",
+    "bs58": "6.0.0",
+    "dotenv": "16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "22.9.0",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3"
+  }
+}
