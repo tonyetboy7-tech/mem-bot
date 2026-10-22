@@ -1,0 +1,26 @@
+# Manual only: empties mem's wallet (leftover tokens, account rent, then all SOL) into the address you type.
+# Pause mem first (set the DRY_RUN variable to true) so he doesn't shop while you withdraw.
+name: withdraw
+on:
+  workflow_dispatch:
+    inputs:
+      to:
+        description: 'Send everything to this wallet address'
+        required: true
+concurrency:
+  group: mem-withdraw   # its own queue, so a waiting withdraw is never replaced by mem's next run
+  cancel-in-progress: false
+jobs:
+  withdraw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npx tsx src/withdraw.ts "$TO"
+        env:
+          TO: ${{ inputs.to }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          RPC_URL: ${{ secrets.RPC_URL }}
